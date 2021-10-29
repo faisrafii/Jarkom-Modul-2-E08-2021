@@ -126,3 +126,148 @@ Setelah itu cek apakah config untuk rewrite berhasil dengan mengakses website di
 
 ![ImgSrc](https://github.com/faisrafii/Jarkom-Modul-2-E08-2021/blob/57243330c699a9f9c36c5c19949db6b0fba26c0f/pictures/Nomor%208e.JPG)
 
+
+## Nomor 10
+
+
+Setelah itu, pada subdomain www.super.franky.yyy.com, Luffy membutuhkan penyimpanan aset yang memiliki DocumentRoot pada /var/www/super.franky.yyy.com.
+
+
+Sama halnya dengan nomor 8, pindah ke directory `/etc/apache2/sites-available` untuk membuat config super.franky dan gunakan command : 
+
+`cp 000-default.conf super.franky.E08.com.conf`
+
+
+Setelah itu buka file `franky.E08.com.conf` dan ubah Document Root menjadi :
+
+`DocumentRoot /var/www/super.franky.E08.com`
+
+
+dan tambahkan :
+
+```
+ServerName super.franky.E08.com
+ServerAlias www.super.franky.E08.com
+```
+
+
+Isi file sebagai berikut :
+
+
+![ImgSrc](https://github.com/faisrafii/Jarkom-Modul-2-E08-2021/blob/e940f9d85dff908a294c0651d388d301d3dbf230/pictures/Nomor%2010a.JPG)
+
+
+Setelah itu enable website dengan command :
+
+`a2ensite super.franky.E08.com` dan restart apache dengan `service apache2 restart`.
+
+
+Setelah itu kembali ke directory root dan download file `super.franky.zip` yang ada di link : [File Jarkom](https://github.com/FeinardSlim/Praktikum-Modul-2-Jarkom)
+
+
+Setelah mendownload file digunakan command `wget <link hasil download>` untuk menaruh file `super.franky.zip` ke dalam Skypie. Sebelum meng-copy file yang ada di dalam `super.franky.zip` buatlah directory `super.franky.E08.com` di `/var/www` dengan command : 
+
+`mkdir /var/www/super.franky.E08.com`
+
+
+Setelah itu unzip file `super.franky.zip` dan copy file yang ada di dalam folder `super.franky` setelah di unzip ke directory `/var/www/super.franky.E08.com` dengan command :
+
+```
+cp -r /root/franky/error /var/www/super.franky.E08.com
+cp -r /root/franky/public /var/www/super.franky.E08.com
+```
+
+
+Setelah itu cek di Loguetown/Alabasta dengan command:
+
+`lynx super.franky.E08.com` dan `lynx www.super.franky.E08.com`
+
+
+**HASIL:**
+
+
+![ImgSrc](https://github.com/faisrafii/Jarkom-Modul-2-E08-2021/blob/b88bb6d5f33fdabb4e0ad38e033255d60994e5fe/pictures/Nomor%2010b.JPG)
+
+
+## Nomor 11
+
+
+Akan tetapi, pada folder /public, Luffy ingin hanya dapat melakukan directory listing saja.
+
+
+Pindah ke directory `/etc/apache2/sites-available` dan buka file `super.franky.E08.com.conf` dan tambahkan isi file sebagai berikut :
+
+
+```
+<Directory /var/www/super.franky.E08.com/public>
+     Options +Indexes
+</Directory>
+```
+
+
+Setelah itu restart apache dengan `service apache2 restart`.
+
+
+Setelah itu cek di Loguetown/Alabasta dengan command:
+
+`lynx super.franky.E08.com/public` dan `lynx www.super.franky.E08.com/public`
+
+
+**HASIL:**
+
+
+![ImgSrc](https://github.com/faisrafii/Jarkom-Modul-2-E08-2021/blob/28f79da154b6d6213068db435fa8e4bdca5d1f11/pictures/Nomor%2011a.JPG)
+
+
+## Nomor 12
+
+
+Tidak hanya itu, Luffy juga menyiapkan error file 404.html pada folder /error untuk mengganti error kode pada apache.
+
+
+Pindah ke directory `/etc/apache2/sites-available` dan buka file `super.franky.E08.com.conf` dan tambahkan isi file sebagai berikut :
+
+`ErrorDocument 404 /error/404.html`
+
+
+Setelah itu restart apache dengan `service apache2 restart`.
+
+
+Setelah itu cek di Loguetown/Alabasta dengan command:
+
+`lynx super.franky.E08.com/bebaslur`
+
+
+**HASIL:**
+
+
+![ImgSrc](https://github.com/faisrafii/Jarkom-Modul-2-E08-2021/blob/e684ba2d3b8553425df09eeddce2885d55d9e6bc/pictures/Nomor%2012a.JPG)
+
+
+## Nomor 13
+
+
+Luffy juga meminta Nami untuk dibuatkan konfigurasi virtual host. Virtual host ini bertujuan untuk dapat mengakses file asset www.super.franky.yyy.com/public/js menjadi www.super.franky.yyy.com/js.
+
+
+Pindah ke directory `/etc/apache2/sites-available` dan buka file `super.franky.E08.com.conf` dan tambahkan isi file sebagai berikut :
+
+
+```
+<Directory /var/www/super.franky.E08.com/public/js>
+     Options +Indexes
+</Directory>
+ 
+Alias "/js" "/var/www/super.franky.E08.com/public/js"
+```
+
+
+Setelah itu cek di Loguetown/Alabasta dengan command:
+
+`lynx super.franky.E08.com/js`
+
+
+**HASIL:**
+
+
+![ImgSrc](https://github.com/faisrafii/Jarkom-Modul-2-E08-2021/blob/63e65e37b62a3def435fca61b809bbc2d248b73e/pictures/Nomor%2013a.JPG)
