@@ -115,7 +115,7 @@ Tambahkan isi file tersebut dengan :
 ```
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
+RewriteRule ^home$ $index.php/home
 ```
 
 Setelah itu cek apakah config untuk rewrite berhasil dengan mengakses website di Loguetown/Alabasta dengan command :
