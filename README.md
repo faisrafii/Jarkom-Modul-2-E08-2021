@@ -85,3 +85,27 @@ Dan Cek website tersebut dengan command :
 **Hasil** : 
 
 ![ImgSrc](https://github.com/faisrafii/Jarkom-Modul-2-E08-2021/blob/57243330c699a9f9c36c5c19949db6b0fba26c0f/pictures/Nomor%208e.JPG)
+
+
+## Nomor 9 
+
+
+Setelah itu, Luffy juga membutuhkan agar url www.franky.yyy.com/index.php/home dapat menjadi menjadi www.franky.yyy.com/home. 
+
+
+Pada Skypie pindah ke directory `/etc/apache2/sites-available` dan buka file `nano franky.E08.com.conf`.
+Tambahkan di dalam file config tersebut : 
+
+```
+<Directory /var/www/franky.E08.com>
+    Options +FollowSymLinks -Multiviews
+    AllowOverride All
+</Directory>
+```
+
+Isi file sebagai berikut :
+
+![ImgSrc](https://github.com/faisrafii/Jarkom-Modul-2-E08-2021/blob/fd02ea04c52ec4cd71de5567724755a45926a95f/pictures/Nomor%209a.JPG)
+
+
+Setelah itu gunakan command `a2enmod rewrite` untuk mengaktifkan module rewrite dan restart apache dengan command `service apache2 restart`.
