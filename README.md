@@ -109,3 +109,20 @@ Isi file sebagai berikut :
 
 
 Setelah itu gunakan command `a2enmod rewrite` untuk mengaktifkan module rewrite dan restart apache dengan command `service apache2 restart`.
+Setelah itu pindah ke directory `/var/www/franky.E08.com` dan buat file `.htaccess` dengan command `nano .htaccess`. 
+Tambahkan isi file tersebut dengan :
+
+```
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+```
+
+Setelah itu cek apakah config untuk rewrite berhasil dengan mengakses website di Loguetown/Alabasta dengan command :
+
+`lynx www.franky.E08.com/home`
+
+**HASIL :**
+
+![ImgSrc](https://github.com/faisrafii/Jarkom-Modul-2-E08-2021/blob/57243330c699a9f9c36c5c19949db6b0fba26c0f/pictures/Nomor%208e.JPG)
+
