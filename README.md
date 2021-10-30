@@ -998,7 +998,7 @@ nano /etc/apache2/sites-available/www.super.franky.E08.com.conf
         ServerName super.franky.E08.com
         ServerAlias www.super.franky.E08.com
 
-				Alias "/js" "/var/www/super.franky.e16.com/public/js"
+				Alias "/js" "/var/www/super.franky.E08.com/public/js"
 
         # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
         # error, crit, alert, emerg.
