@@ -889,4 +889,73 @@ Lalu Restart Apache2
 ![image](https://user-images.githubusercontent.com/81347366/139534317-bbc91d61-4470-436a-9437-06f26d0c630b.png)
 
 
+## Nomor 16
+
+
+Dan setiap kali mengakses IP Skypie akan dialihkan secara otomatis ke[ ](http://www.franky.com/)[www.franky.yyy.com](http://www.franky.xxx.com/) d
+
+#### Pada Node Skypie
+
+```bash
+a2enmod rewrite
+nano /var/www/franky.e16.com/.htaccess
+```
+
+```bash
+RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_HOST} ^10\\.37\\.2\\.4$
+RewriteRule ^(.*)$ <http://www.franky.E08.com/$1> [L,R=301]
+```
+
+```bash
+nano /etc/apache2/sites-available/000-default.conf
+```
+
+**Isi Konfigurasi dengan format berikut :**
+
+```bash
+<VirtualHost *:80>
+        # The ServerName directive sets the request scheme, hostname and port t$
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/franky.e16.com
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+				ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+```
+
+**HASIL:**
+
+![image](https://user-images.githubusercontent.com/81347366/139535093-4ec5d04f-af86-4a5f-b778-3d441f8a0343.png)
+
+![image](https://user-images.githubusercontent.com/81347366/139535138-af73a50d-0f33-4984-aa00-0e46448fa591.png)
+
+![image](https://user-images.githubusercontent.com/81347366/139535167-7c77bce9-cd17-40c6-b44c-97a448c7335f.png)
+
+
+
 
