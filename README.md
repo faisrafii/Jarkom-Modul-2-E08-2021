@@ -105,8 +105,6 @@ Luffy ingin menghubungi Franky yang berada di EniesLobby dengan denden mushi. Ka
      };
      ```
 
-     ![2a]()
-
 3. Buat folder kaizoku dengan perintah berikut: 
    
    `mkdir /etc/bind/kaizoku`
@@ -121,7 +119,7 @@ Luffy ingin menghubungi Franky yang berada di EniesLobby dengan denden mushi. Ka
 
    menjadi sebagai berikut:
 
-   ![2b]()
+   ![2a](pictures/2a.png)
 
 6. Restart bind9
    
@@ -138,7 +136,7 @@ Luffy ingin menghubungi Franky yang berada di EniesLobby dengan denden mushi. Ka
    
    `ping www.franky.E08.com`
 
-   ![2c]()
+   ![2c](pictures/2b.png)
 
 
 ## Nomor 3
@@ -154,7 +152,7 @@ Setelah itu buat subdomain super.franky.yyy.com dengan alias www.super.franky.yy
 
    menjadi sebagai berikut:
 
-   ![3a]()
+   ![3a](pictures/3a.png)
 
 2. Restart bind9
    
@@ -169,7 +167,7 @@ Setelah itu buat subdomain super.franky.yyy.com dengan alias www.super.franky.yy
    
    `ping www.super.franky.E08.com`
 
-   ![3b]()
+   ![3b](pictures/3b.png)
 
 ## Nomor 4
 Buat juga reverse domain untuk domain utama.
@@ -187,7 +185,7 @@ Buat juga reverse domain untuk domain utama.
      };
      ```
 
-     ![4a]()
+     ![4a](pictures/4a.png)
    
 2. Copy file dengan perintah:
    
@@ -199,7 +197,7 @@ Buat juga reverse domain untuk domain utama.
 
    menjadi sebagai berikut:
 
-   ![4b]()
+   ![4b](pictures/4b.png)
 
 4. Restart bind9
    
@@ -211,7 +209,7 @@ Buat juga reverse domain untuk domain utama.
    
    `host -t PTR 10.33.2.2`
 
-   ![4c]()
+   ![4c](pictures/4c.png)
 
 ## Nomor 5
 Supaya tetap bisa menghubungi Franky jika server EniesLobby rusak, maka buat Water7 sebagai DNS Slave untuk domain utama.
@@ -235,7 +233,7 @@ Supaya tetap bisa menghubungi Franky jika server EniesLobby rusak, maka buat Wat
           file "/etc/bind/kaizoku/franky.E08.com";
      };
      ```
-     ![5a]()
+     ![5a](pictures/5a.png)
 
 2. Restart bind9
    
@@ -251,14 +249,12 @@ Supaya tetap bisa menghubungi Franky jika server EniesLobby rusak, maka buat Wat
 
      ```
      zone "franky.E08.com" {
-          type master;
-          notify yes;
-          also-notify { 10.33.2.3; };
-          allow-transfer { 10.33.2.3; }; 
-          file "/etc/bind/kaizoku/franky.E08.com";
-     };
+         type slave;
+         masters { 10.33.2.2; }; // Masukan IP EniesLobby tanpa tanda petik
+         file "/var/lib/bind/franky.E08.com";
+      };
      ```
-     ![5a]()
+     ![5b](pictures/5b.png)
 
 2. Restart bind9
    
@@ -275,6 +271,8 @@ Supaya tetap bisa menghubungi Franky jika server EniesLobby rusak, maka buat Wat
 1. Tambahkan IP Water7 `nameserver 10.33.2.3` pada file `/etc/resolv.conf`
 2. Ping `ping franky.E08.com`
 
+![5c](pictures/5c.png)
+
 ## Nomor 6
 Setelah itu terdapat subdomain mecha.franky.yyy.com dengan alias www.mecha.franky.yyy.com yang didelegasikan dari EniesLobby ke Water7 dengan IP menuju ke Skypie dalam folder sunnygo.
 
@@ -287,7 +285,7 @@ Setelah itu terdapat subdomain mecha.franky.yyy.com dengan alias www.mecha.frank
 
    menjadi sebagai berikut:
 
-   ![6a]()
+   ![6a](pictures/6a.png)
 
 2. Ubah file `named.conf.options` dengan perintah
    
@@ -295,7 +293,7 @@ Setelah itu terdapat subdomain mecha.franky.yyy.com dengan alias www.mecha.frank
 
    menjadi sebagai berikut:
 
-   ![6b]()
+   ![6b==6c](pictures/6b.png)
 
 3. Restart bind9
    
@@ -309,7 +307,7 @@ Setelah itu terdapat subdomain mecha.franky.yyy.com dengan alias www.mecha.frank
 
    menjadi sebagai berikut:
 
-   ![6c]()
+   ![6c](pictures/6c.png)
 
 2. Ubah file `named.conf.local` dengan perintah
    
@@ -326,7 +324,7 @@ Setelah itu terdapat subdomain mecha.franky.yyy.com dengan alias www.mecha.frank
 
    menjadi sebagai berikut:
 
-   ![6c]()
+   ![6d](pictures/6d.png)
 
 3. Buat folder kaizoku dengan perintah berikut: 
    
@@ -348,7 +346,7 @@ Untuk memperlancar komunikasi Luffy dan rekannya, dibuatkan subdomain melalui Wa
 
    menjadi sebagai berikut:
 
-   ![6d]()
+   ![7a](pictures/7a.png)
 
 6. Restart bind9
    
@@ -362,7 +360,7 @@ Untuk memperlancar komunikasi Luffy dan rekannya, dibuatkan subdomain melalui Wa
    
    `ping general.mecha.franky.E08.com`
 
-   ![7c]()
+   ![7b](pictures/7b.png)
 
 ## Nomor 8
 
