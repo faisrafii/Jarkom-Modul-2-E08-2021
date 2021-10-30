@@ -782,7 +782,7 @@ Masukkan passowrd dan re-type password dengan syntax **onepiece**
 
 kemudian ubah konfigurasi file general mecha yang 15000 dan 15500 
 
-`nano /etc/apache2/sites-available/www.general.mecha.franky.e16.com-15000.conf`
+`nano /etc/apache2/sites-available/www.general.mecha.franky.E08.com-15000.conf`
 
 ##### Isi dengan format seperti berikut	:
 
@@ -896,7 +896,7 @@ Dan setiap kali mengakses IP Skypie akan dialihkan secara otomatis ke[ ](http://
 
 ```bash
 a2enmod rewrite
-nano /var/www/franky.e16.com/.htaccess
+nano /var/www/franky.E08.com/.htaccess
 ```
 
 ```bash
@@ -924,7 +924,7 @@ nano /etc/apache2/sites-available/000-default.conf
         #ServerName www.example.com
 
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/franky.e16.com
+        DocumentRoot /var/www/franky.E08.com
 
         # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
         # error, crit, alert, emerg.
