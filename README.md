@@ -1,5 +1,279 @@
 # Jarkom-Modul-2-E08-2021
 
+## Nomor 1
+Luffy adalah seorang yang akan jadi Raja Bajak Laut. Demi membuat Luffy menjadi Raja Bajak Laut, Nami ingin membuat sebuah peta, bantu Nami untuk membuat peta berikut:
+
+![topografi](pictures/topografi.png)
+
+EniesLobby akan dijadikan sebagai DNS Master, Water7 akan dijadikan DNS Slave, dan Skypie akan digunakan sebagai Web Server. Terdapat 2 Client yaitu Loguetown, dan Alabasta. Semua node terhubung pada router Foosha, sehingga dapat mengakses internet.
+
+**Pembahasan:**
+
+Tambahkan beberapa node ethernet switch dan ubuntu, lalu buat hubungan antar node dan nama-nama dari node hingga seperti di soal.
+
+Lalu kita setting network masing-masing node dengan fitur `Edit network configuration`, kita bisa menghapus semua settingnya dan mengisi dengan settingan di bawah
+  - Foosha
+  ```
+  auto eth0
+  iface eth0 inet dhcp
+
+  auto eth1
+  iface eth1 inet static
+  	address 10.33.1.1
+  	netmask 255.255.255.0
+
+  auto eth2
+  iface eth2 inet static
+  	address 10.33.2.1
+  	netmask 255.255.255.0
+  ```
+  - Loguetown
+  ```
+  auto eth0
+  iface eth0 inet static
+  	address 10.33.1.2
+  	netmask 255.255.255.0
+  	gateway 10.33.1.1
+  ```
+  - Alabasta
+  ```
+  auto eth0
+  iface eth0 inet static
+  	address 10.33.1.3
+  	netmask 255.255.255.0
+  	gateway 10.33.1.1
+  ```
+  - EniesLobby
+  ```
+  auto eth0
+  iface eth0 inet static
+  	address 10.33.2.2
+  	netmask 255.255.255.0
+  	gateway 10.33.2.1
+  ```
+  - Water7
+  ```
+  auto eth0
+  iface eth0 inet static
+  	address 10.33.2.3
+  	netmask 255.255.255.0
+  	gateway 10.33.2.1
+  ```
+  - Skypie
+  ```
+  auto eth0
+  iface eth0 inet static
+  	address 10.33.2.4
+  	netmask 255.255.255.0
+  	gateway 10.33.2.1
+  ```
+
+Selanjutnya sambungkan semua node ke internet dengan perintah berikut:
+
+- Pada Foosha: 
+
+`iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.33.0.0/16`
+
+- Pada node-node lain:
+
+`echo nameserver 192.168.122.1 > /etc/resolv.conf`
+
+
+## Nomor 2
+Luffy ingin menghubungi Franky yang berada di EniesLobby dengan denden mushi. Kalian diminta Luffy untuk membuat website utama dengan mengakses franky.yyy.com dengan alias www.franky.yyy.com pada folder kaizoku.
+
+**Pembahasan:**
+
+**Pada EniesLobby**
+
+1. Install bind9
+
+     `apt-get update`
+
+     `apt-get install bind9 -y`
+
+2. Ubah file named.conf.local dengan perintah 
+   
+   `nano /etc/bind/named.conf.local` 
+   
+   menjadi sebagai berikut:
+
+     ```
+     zone "franky.E08.com" {
+          type master;
+          file "/etc/bind/kaizoku/franky.E08.com";
+     };
+     ```
+
+     ![2a]()
+
+3. Buat folder kaizoku dengan perintah berikut: 
+   
+   `mkdir /etc/bind/kaizoku`
+   
+4. Copy file dengan perintah:
+   
+   `cp /etc/bind/db.local /etc/bind/kaizoku/franky.E08.com`
+
+5. Ubah file `franky.E08.com` dengan perintah
+   
+   `nano /etc/bind/kaizoku/franky.E08.com`
+
+   menjadi sebagai berikut:
+
+   ![2b]()
+
+6. Restart bind9
+   
+   `service bind9 restart`
+
+**Pada LogueTown dan Alabasta**
+
+1. Tambahkan IP Enieslobbby `nameserver 10.33.2.2` pada file `/etc/resolv.conf`
+2. Ping dan lakukan pengecekan host dari CNAME
+   
+   `ping franky.E08.com`
+
+   `host -t CNAME www.franky.E08.com`
+   
+   `ping www.franky.E08.com`
+
+   ![2c]()
+
+
+## Nomor 3
+Setelah itu buat subdomain super.franky.yyy.com dengan alias www.super.franky.yyy.com yang diatur DNS nya di EniesLobby dan mengarah ke Skypie.
+
+**Pembahasan:**
+
+**Pada EniesLobby**
+
+1. Ubah file `franky.E08.com` dengan perintah
+   
+   `nano /etc/bind/kaizoku/franky.E08.com`
+
+   menjadi sebagai berikut:
+
+   ![3a]()
+
+2. Restart bind9
+   
+   `service bind9 restart`
+
+**Pada LogueTown dan Alabasta:**
+1. Ping dan lakukan pengecekan host dari CNAME
+   
+   `ping super.franky.E08.com`
+
+   `host -t A super.franky.E08.com`
+   
+   `ping www.super.franky.E08.com`
+
+   ![3b]()
+
+## Nomor 4
+Buat juga reverse domain untuk domain utama.
+
+1. Ubah file named.conf.local dengan perintah 
+   
+   `nano /etc/bind/named.conf.local` 
+   
+   tambahkan konfigurasi berikut:
+
+     ```
+     zone "2.33.10.in-addr.arpa" {
+          type master;
+          file "/etc/bind/kaizoku/2.33.10.in-addr.arpa";
+     };
+     ```
+
+     ![4a]()
+   
+2. Copy file dengan perintah:
+   
+   `cp /etc/bind/db.local /etc/bind/kaizoku/2.33.10.in-addr.arpa`
+
+3. Ubah file `2.33.10.in-addr.arpa` dengan perintah
+   
+   `nano /etc/bind/kaizoku/2.33.10.in-addr.arpa`
+
+   menjadi sebagai berikut:
+
+   ![4b]()
+
+4. Restart bind9
+   
+   `service bind9 restart`
+
+**Pada LogueTown dan Alabasta**
+
+1. Lakukan pengecekan host PTR
+   
+   `host -t PTR 10.33.2.2`
+
+   ![4c]()
+
+## Nomor 5
+Supaya tetap bisa menghubungi Franky jika server EniesLobby rusak, maka buat Water7 sebagai DNS Slave untuk domain utama.
+
+**Pembahasan:**
+
+**Pada EniesLobby**
+
+1. Ubah file named.conf.local dengan perintah 
+   
+   `nano /etc/bind/named.conf.local` 
+   
+   ubah konfigurasi pertama menjadi berikut:
+
+     ```
+     zone "franky.E08.com" {
+          type master;
+          notify yes;
+          also-notify { 10.33.2.3; };
+          allow-transfer { 10.33.2.3; }; 
+          file "/etc/bind/kaizoku/franky.E08.com";
+     };
+     ```
+     ![5a]()
+
+2. Restart bind9
+   
+   `service bind9 restart`
+
+**Pada Water7**
+
+1. Ubah file named.conf.local dengan perintah 
+   
+   `nano /etc/bind/named.conf.local` 
+   
+   ubah konfigurasi pertama menjadi berikut:
+
+     ```
+     zone "franky.E08.com" {
+          type master;
+          notify yes;
+          also-notify { 10.33.2.3; };
+          allow-transfer { 10.33.2.3; }; 
+          file "/etc/bind/kaizoku/franky.E08.com";
+     };
+     ```
+     ![5a]()
+
+2. Restart bind9
+   
+   `service bind9 restart`
+
+
+
+
+## Nomor 6
+Setelah itu terdapat subdomain mecha.franky.yyy.com dengan alias www.mecha.franky.yyy.com yang didelegasikan dari EniesLobby ke Water7 dengan IP menuju ke Skypie dalam folder sunnygo.
+
+## Nomor 7
+Untuk memperlancar komunikasi Luffy dan rekannya, dibuatkan subdomain melalui Water7 dengan nama general.mecha.franky.yyy.com dengan alias www.general.mecha.franky.yyy.com yang mengarah ke Skypie.
+
+
 ## Nomor 8
 
 
