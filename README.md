@@ -955,5 +955,16 @@ nano /etc/apache2/sites-available/000-default.conf
 ![image](https://user-images.githubusercontent.com/81347366/139535167-7c77bce9-cd17-40c6-b44c-97a448c7335f.png)
 
 
+## Kendala
 
 
+Kendala yang dialami oleh kelompok kami pada saat mengerjakan praktikum adalah :
+
+
+1. Setiap anggota yang ada di kelompok kami mengerjakan nomor yang berbeda dan pengerjaan praktikum harus berurut dan setiap kali project di export dan di import, konfigurasi pengerjaan praktikum tidak tersimpan.
+ - Hal ini kami atasi dengan pembuatan bash script di setiap node nya agar pada saat import project tidak perlu lagi konfigurasi manual
+2. Script yang ada di setiap nodenya terkadang ada yang salah sehingga pada saat di import terkadang konfigurasi tidak berjalan
+ - Hal ini diatasi dengan pembuatan ulang script 
+3. Beberapa materi yang ada di modul tidak muncul di soal praktikum.
+ - Hal ini kami atasi dengan mencari method yang tidak ada di modul menggunakan google
+		
