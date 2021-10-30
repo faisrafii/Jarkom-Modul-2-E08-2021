@@ -768,6 +768,125 @@ Listen 15500
 **HASIL:**
 ![image](https://user-images.githubusercontent.com/81347366/139533989-8121f1b4-6338-4f09-acfd-8820c6f47a5c.png)
 
+## Nomor 15
+
+
+dengan autentikasi username luffy dan password onepiece dan file di /var/www/general.mecha.franky.yyy
+
+#### Pada Node Skypie
+
+```bash
+cd
+htpasswd -c /etc/apache2/.htpasswd luffy
+```
+
+Masukkan passowrd dan re-type password dengan syntax **onepiece**
+
+kemudian ubah konfigurasi file general mecha yang 15000 dan 15500 
+
+`nano /etc/apache2/sites-available/www.general.mecha.franky.e16.com-15000.conf`
+
+##### Isi dengan format seperti berikut	:
+
+```bash
+<VirtualHost *:15000>
+        # The ServerName directive sets the request scheme, hostname and port t$
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/general.mecha.franky.E08.com
+        ServerName general.mecha.franky.E08.com
+        ServerAlias www.general.mecha.franky.E08.com
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+				#LogLevel info ssl:warn
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+				<Directory "var/www/general.mecha.franky.E08.com">
+                AuthType Basic
+                AuthName "Restricted Content"
+                AuthUserFile /etc/apache2/.htpasswd
+                Require valid-user
+        </Directory>
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+				#Include conf-available/serve-cgi-bin.conf
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+```
+
+##### Lakukan hal serupa dengan file untuk listen ke port 15500
+
+```bash
+<VirtualHost *:15500>
+        # The ServerName directive sets the request scheme, hostname and port t$
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/general.mecha.franky.E08.com
+        ServerName general.mecha.franky.E08.com
+        ServerAlias www.general.mecha.franky.E08.com
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+				#LogLevel info ssl:warn
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+				<Directory "var/www/general.mecha.franky.E08.com">
+                AuthType Basic
+                AuthName "Restricted Content"
+                AuthUserFile /etc/apache2/.htpasswd
+                Require valid-user
+        </Directory>
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+				#Include conf-available/serve-cgi-bin.conf
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+```
+
+Lalu Restart Apache2
+
+`service apache2 restart`
+
+**HASIL:**
+
+![image](https://user-images.githubusercontent.com/81347366/139534285-44f2fc3c-a85a-4d6b-96e9-c79517098d13.png)
+
+![image](https://user-images.githubusercontent.com/81347366/139534303-a849525b-de1c-4393-90ae-b8a05b1857f6.png)
+
+![image](https://user-images.githubusercontent.com/81347366/139534317-bbc91d61-4470-436a-9437-06f26d0c630b.png)
 
 
 
