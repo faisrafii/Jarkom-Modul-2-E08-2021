@@ -264,15 +264,105 @@ Supaya tetap bisa menghubungi Franky jika server EniesLobby rusak, maka buat Wat
    
    `service bind9 restart`
 
+**Pada EniesLobby**
 
+1. Stop bind9 service
+     
+    `service bind9 stop`
 
+**Pada LogueTown dan Alabasta**
+
+1. Tambahkan IP Water7 `nameserver 10.33.2.3` pada file `/etc/resolv.conf`
+2. Ping `ping franky.E08.com`
 
 ## Nomor 6
 Setelah itu terdapat subdomain mecha.franky.yyy.com dengan alias www.mecha.franky.yyy.com yang didelegasikan dari EniesLobby ke Water7 dengan IP menuju ke Skypie dalam folder sunnygo.
 
+**Pembahasan**
+
+**Pada EniesLobby**
+1. Ubah file `franky.E08.com` dengan perintah
+   
+   `nano /etc/bind/kaizoku/franky.E08.com`
+
+   menjadi sebagai berikut:
+
+   ![6a]()
+
+2. Ubah file `named.conf.options` dengan perintah
+   
+   `nano /etc/bind/named.conf.options`
+
+   menjadi sebagai berikut:
+
+   ![6b]()
+
+3. Restart bind9
+   
+   `service bind9 restart`
+
+**Pada Water7**
+
+1. Ubah file `named.conf.options` dengan perintah
+   
+   `nano /etc/bind/named.conf.options`
+
+   menjadi sebagai berikut:
+
+   ![6c]()
+
+2. Ubah file `named.conf.local` dengan perintah
+   
+   `nano /etc/bind/named.conf.local`
+
+   dengan menambahkan
+
+   ```
+   zone "mecha.franky.E08.com" {
+          type master;
+          file "/etc/bind/sunnygo/mecha.franky.E08.com";
+     };
+     ```
+
+   menjadi sebagai berikut:
+
+   ![6c]()
+
+3. Buat folder kaizoku dengan perintah berikut: 
+   
+   `mkdir /etc/bind/sunnygo`
+   
+4. Copy file dengan perintah:
+   
+   `cp /etc/bind/db.local /etc/bind/sunnygo/mecha.franky.E08.com`
+
+
 ## Nomor 7
 Untuk memperlancar komunikasi Luffy dan rekannya, dibuatkan subdomain melalui Water7 dengan nama general.mecha.franky.yyy.com dengan alias www.general.mecha.franky.yyy.com yang mengarah ke Skypie.
 
+**Pada Water7**
+
+1. Ubah file `mecha.franky.E08.com` dengan perintah
+   
+   `nano /etc/bind/sunnygo/mecha.franky.E08.com`
+
+   menjadi sebagai berikut:
+
+   ![6d]()
+
+6. Restart bind9
+   
+   `service bind9 restart`
+
+**Pada LogueTown dan Alabasta**
+
+1. Ping 
+   
+   `ping mecha.franky.E08.com`
+   
+   `ping general.mecha.franky.E08.com`
+
+   ![7c]()
 
 ## Nomor 8
 
